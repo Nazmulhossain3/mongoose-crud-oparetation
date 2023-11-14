@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const todoHandler = require('./routerHandler/todoHandler')
 const app = express();
 const port = 3000;
 
@@ -12,6 +13,12 @@ mongoose.connect('mongodb://localhost:27017/todos', {
 })
     .then(() => console.log("Connection is successful"))
     .catch(err => console.error("Connection failed:", err));
+
+// appication route here
+
+app.use('/todo', todoHandler)
+
+
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
