@@ -27,6 +27,47 @@ router.get('/', async(req,res)=> {
     
 })
 
+// get all active todos using intance method
+
+router.get('/active', async(req,res)=> {
+
+    try {
+        const todo = new Todo()
+        const data = await todo.findActive()
+        res.status(200).json({
+            result: data,
+            message: "All todos retrieved successfully"
+        });
+    } catch (error) {
+        res.status(500).json({
+            error: "There was a server-side error"
+        });
+    }
+    
+    
+})
+
+// here is all mongodb todos using static method
+
+router.get('/mongodb', async(req,res)=> {
+    const data = await Todo.findByMongoDb()
+    res.status(200).json({
+        data
+    })
+})
+
+// get todo by language using query method.
+
+router.get('/language', async(req,res)=> {
+    const data = await Todo.find().byLanguage("react")
+    res.status(200).json({
+        data
+    })
+})
+
+
+
+
 // get a todo by id
 
 
